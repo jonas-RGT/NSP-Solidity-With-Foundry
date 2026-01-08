@@ -33,14 +33,13 @@ contract UserManagement {
 
     //Update Status
     function updateUserStatus(UserStatus _newStatus) external {
-     User storage user = users[msg.sender];
+        User storage user = users[msg.sender];
 
-     require(user.exists, "User doesn't exist");
-     user.status = _newStatus;
+        require(user.exists, "User doesn't exist");
+        user.status = _newStatus;
 
         emit UserStatusChanged(msg.sender, _newStatus);
     }
-
 
     //Retrieve User data
     function getUser(address _userAddress)

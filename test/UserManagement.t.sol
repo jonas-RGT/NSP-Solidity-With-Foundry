@@ -81,6 +81,4 @@ contract UserManagementTest is Test {
         assertTrue(exists1);
         assertTrue(exists2);
     }
-
-   
 }
