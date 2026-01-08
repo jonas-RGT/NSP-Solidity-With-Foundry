@@ -44,12 +44,15 @@ contract UserManagementTest is Test {
         vm.stopPrank();
     }
 
-    // Test 4: Update user status
+    // Test 4: Update user status (self-service)
     function testUpdateUserStatus() public {
+        // Register first
         vm.prank(alice);
         userManagement.registerUser("Alice");
 
-        userManagement.updateUserStatus(alice, UserManagement.UserStatus.Suspended);
+        // Update status as the same user
+        vm.prank(alice);
+        userManagement.updateUserStatus(UserManagement.UserStatus.Suspended);
 
         (,, UserManagement.UserStatus status,) = userManagement.getUser(alice);
         assertEq(uint256(status), uint256(UserManagement.UserStatus.Suspended));
@@ -57,8 +60,9 @@ contract UserManagementTest is Test {
 
     // Test 5: Cannot update non-existent user
     function testCannotUpdateNonExistentUser() public {
+        vm.prank(alice);
         vm.expectRevert("User doesn't exist");
-        userManagement.updateUserStatus(alice, UserManagement.UserStatus.Banned);
+        userManagement.updateUserStatus(UserManagement.UserStatus.Banned);
     }
 
     // Test 6: Multiple users can register
@@ -77,4 +81,6 @@ contract UserManagementTest is Test {
         assertTrue(exists1);
         assertTrue(exists2);
     }
+
+   
 }
