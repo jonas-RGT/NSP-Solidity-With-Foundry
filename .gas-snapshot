@@ -1,0 +1,6 @@
+UserManagementTest:testCannotRegisterEmptyName() (gas: 14780)
+UserManagementTest:testCannotRegisterTwice() (gas: 85327)
+UserManagementTest:testCannotUpdateNonExistentUser() (gas: 14208)
+UserManagementTest:testMultipleUsers() (gas: 168911)
+UserManagementTest:testRegisterUser() (gas: 88164)
+UserManagementTest:testUpdateUserStatus() (gas: 91112)

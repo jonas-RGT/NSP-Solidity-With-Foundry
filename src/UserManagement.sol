@@ -9,10 +9,10 @@ contract UserManagement {
     }
 
     struct User {
-        string name;
         uint256 registrationDate;
-        UserStatus status;
-        bool exists;
+        string name;             
+        UserStatus status;       
+        bool exists;             
     }
 
     mapping(address => User) public users;
@@ -21,9 +21,11 @@ contract UserManagement {
     event UserStatusChanged(address indexed userAddress, UserStatus newStatus);
 
     //Add new user
-    function registerUser(string memory _name) public {
-        require(!users[msg.sender].exists, "User already registered");
-        require(bytes(_name).length > 0, "Name cannot be empty");
+     function registerUser(string memory _name) external {
+        User storage user = users[msg.sender];
+
+        require(!user.exists, "User already registered");
+        require(bytes(_name).length != 0, "Name cannot be empty");
 
         users[msg.sender] =
             User({name: _name, registrationDate: block.timestamp, status: UserStatus.Active, exists: true});
@@ -47,7 +49,7 @@ contract UserManagement {
         view
         returns (string memory name, uint256 registrationDate, UserStatus status, bool exists)
     {
-        User memory user = users[_userAddress];
+        User storage user = users[_userAddress];
         return (user.name, user.registrationDate, user.status, user.exists);
     }
 }
