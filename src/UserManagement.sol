@@ -10,9 +10,9 @@ contract UserManagement {
 
     struct User {
         uint256 registrationDate;
-        string name;             
-        UserStatus status;       
-        bool exists;             
+        string name;
+        UserStatus status;
+        bool exists;
     }
 
     mapping(address => User) public users;
@@ -21,7 +21,7 @@ contract UserManagement {
     event UserStatusChanged(address indexed userAddress, UserStatus newStatus);
 
     //Add new user
-     function registerUser(string memory _name) external {
+    function registerUser(string memory _name) external {
         User storage user = users[msg.sender];
 
         require(!user.exists, "User already registered");
